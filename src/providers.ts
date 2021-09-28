@@ -20,6 +20,13 @@ export const PROVIDERS = [
     }
   },
   {
+    name: 'ga_direct',
+    runtime: require.resolve('./runtime/providers/ga_direct'),
+    defaults: () => ({
+      eventCategory: 'Web Vitals'
+    })
+  },
+  {
     name: 'vercel',
     runtime: require.resolve('./runtime/providers/vercel'),
     defaults: _nuxtOptions => ({
