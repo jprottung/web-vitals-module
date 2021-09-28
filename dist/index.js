@@ -34,7 +34,9 @@ const PROVIDERS = [
     runtime: require.resolve("./runtime/providers/ga_direct"),
     defaults: () => ({
       eventCategory: "Web Vitals"
-    })
+    }),
+    validate() {
+    }
   },
   {
     name: "vercel",
