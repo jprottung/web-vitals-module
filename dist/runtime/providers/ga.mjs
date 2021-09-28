@@ -1,0 +1,26 @@
+import { withQuery } from "ufo";
+import { UID, send } from "../utils.mjs";
+const googleAnalyticsURL = "https://www.google-analytics.com/collect";
+export function sendToAnalytics({ fullPath, href }, metric, options) {
+  const opts = {
+    ec: options.eventCategory,
+    ea: metric.name,
+    el: metric.id,
+    ev: parseInt(metric.delta) + "",
+    dl: fullPath,
+    dh: href,
+    ni: "true"
+  };
+  if (metric.name === "TTFB") {
+    opts.ev = parseInt(metric.delta - metric.entries[0].requestStart);
+  }
+  const url = withQuery(googleAnalyticsURL, {
+    v: "1",
+    t: "event",
+    tid: options.id,
+    cid: UID,
+    ...opts,
+    z: Date.now() + ""
+  });
+  send(url);
+}
